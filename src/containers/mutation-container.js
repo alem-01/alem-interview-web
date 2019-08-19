@@ -1,6 +1,6 @@
 import React from 'react';
 import toastr from 'toastr';
-import { InterviewContainer, InterviewView } from './../components/interview';
+import { InterviewContainer } from './../components/interview';
 
 import { Subscription, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';

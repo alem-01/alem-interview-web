@@ -3,6 +3,7 @@ import App from '../app';
 import Login from '../login';
 import Callback from './callback';
 import GithubService from '../../services/github-service';
+import toastr from 'toastr';
 
 export default class Auth extends React.Component {
 
@@ -17,7 +18,9 @@ export default class Auth extends React.Component {
 
 		this.githubService.getToken(code)
 			.then((resp) => {
-				console.log(resp);
+				if (resp.hint) {
+					toastr.error(resp.hint);
+				}
 				this.setSession(resp);
 			})
 	};

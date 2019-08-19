@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import ErrorBoundry from './components/error-boundry';
 import Auth from './components/auth'
-// import App from './components/app';
+import ErrorBoudry from './components/error-boundry';
 
 ReactDOM.render(
-	<Auth />,
-	// <App />,
+	<ErrorBoudry>
+		<Auth />
+	</ErrorBoudry>,
 	document.getElementById('root')
 );
