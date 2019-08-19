@@ -8,7 +8,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }) => {
 	if (completed) {
 		return <Completionist />;
 	} else {
-		return <span>ммм, всего-то! <br />{days}d : {hours}h : {minutes}:{seconds}</span>;
+		return <span>{days}d : {hours}h : {minutes}:{seconds}</span>;
 	}
 };
 
@@ -45,9 +45,9 @@ const InterviewView = ({ data }) => {
 		<div className="interview-body">
 			<div className="interview-title">{title}</div>
 			<div className="interview-time">
-				{StartTime} {EndTime}
-				<br />
 				{DateOfInterview}
+				<br />
+				{StartTime} {EndTime}
 			</div>
 			<div className="interview-slots">
 				<span className="interview-registered">{registered}/</span>
@@ -62,9 +62,9 @@ const InterviewContainer = ({ interview, current }) => {
 	const { date, end_date } = interview
 	let interview_date = new Date(date);
 	let finish_date = new Date(end_date);
-	const DateOfInterview = current ? <Countdown date={interview_date} renderer={renderer} /> : formatDate(interview_date);
+	const DateOfInterview = formatDate(interview_date);
 	const EndTime = current ? null : formatHoursAndMinutes(finish_date);
-	const StartTime = current ? null : formatHoursAndMinutes(interview_date) + " —";
+	const StartTime = current ? <Countdown date={interview_date} renderer={renderer} /> : formatHoursAndMinutes(interview_date) + " —";
 	return (
 		<InterviewView data={{ ...interview, DateOfInterview, EndTime, StartTime }} />
 	)

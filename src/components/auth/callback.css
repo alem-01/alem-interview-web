@@ -1,0 +1,15 @@
+.wrapper-loading {
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(174deg, #2730d7, #1724cd, #020024);
+	background-size: 600% 600%;
+	
+	-webkit-animation: Cutom 14s ease infinite;
+	-moz-animation: Cutom 14s ease infinite;
+	animation: Cutom 14s ease infinite;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}

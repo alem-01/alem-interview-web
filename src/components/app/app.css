@@ -1,5 +1,12 @@
 html, body {
 	font-family: 'Source Sans Pro';
+	height: 100%;
+	width: 100%;
+}
+
+#root {
+	height: 100%;
+	width: 100%;
 }
 
 .bo {

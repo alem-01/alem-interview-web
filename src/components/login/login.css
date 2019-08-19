@@ -1,0 +1,39 @@
+.overlay {
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(174deg, #2730d7, #1724cd, #020024);
+	background-size: 600% 600%;
+	
+	-webkit-animation: Cutom 14s ease infinite;
+	-moz-animation: Cutom 14s ease infinite;
+	animation: Cutom 14s ease infinite;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+button {
+	padding: 10rem;
+}
+
+.overlay a {
+	color: black;
+}
+
+@keyframes Cutom {
+	0%{background-position:84% 0%}
+	50%{background-position:17% 100%}
+	100%{background-position:84% 0%}
+}
+@-webkit-keyframes Cutom {
+	0%{background-position:84% 0%}
+	50%{background-position:17% 100%}
+	100%{background-position:84% 0%}
+}
+@-moz-keyframes Cutom {
+	0%{background-position:84% 0%}
+	50%{background-position:17% 100%}
+	100%{background-position:84% 0%}
+}

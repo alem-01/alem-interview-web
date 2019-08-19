@@ -13,22 +13,11 @@ export default class App extends Component {
 		data: {},
 	}
 
-	// loginAndGetData = async (code) => {
-	//     await this.githubService.getToken(code);
-	//     const user = await this.githubService.getUser();
-	//     this.setState({
-	//         data: user,
-	//     })
-	// }
-
 	createApolloClient = (authToken) => {
-
-
 		return new ApolloClient({
 
 			link: new WebSocketLink({
 				uri: 'wss://hasura-interview.alem.school/v1/graphql',
-				// uri: 'https://hasura-interview.alem.school/v1/graphql',
 				options: {
 					reconnect: true,
 					lazy: true,
@@ -44,49 +33,16 @@ export default class App extends Component {
 		});
 	};
 
-	componentDidMount() {
-		// const url = new URL(window.location.href);
-		// const code = url.searchParams.get("code")
-		// if (code) {
-		// this.loginAndGetData(code);
-		// }
-
-		// this.githubService.getUser()
-		// 	.then((data) => {
-		// 		this.setState({
-		// 			data: data,
-		// 		})
-		// 	})
-	}
-
 	render() {
-		// const { data: { avatar_url, bio, login } } = this.state;
 		const jwt_token = localStorage.getItem('jwt')
-		// console.log(jwt_token);
 		const client = this.createApolloClient(jwt_token)
 		return (
 			<ApolloProvider client={client}>
 				<div className="container bo">
-					<Interviews />
+					<Interviews logout={this.props.auth.logout} />
 				</div>
 				<Footer />
 			</ApolloProvider>
 		)
 	}
 }
-
-/*
-
-app
-	current interview (exist?)
-		mutation => (if date - 12 > now)
-			interview
-
-	interview header
-		interview
-
-	interview list
-		mutation => (if date > now, registered = false)
-			subscrition interview
-
-*/
