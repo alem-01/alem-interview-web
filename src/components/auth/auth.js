@@ -10,7 +10,6 @@ export default class Auth extends React.Component {
 
 	state = {
 		isAuthenticated: false,
-		idToken: null
 	};
 
 	handleAuthentication = (code) => {
@@ -23,37 +22,29 @@ export default class Auth extends React.Component {
 			})
 	};
 
-	setSession({ access_token, jwt_token }) {
-		if (!access_token) {
+	setSession({ jwt_token }) {
+		if (!jwt_token) {
 			this.setState({
 				isAuthenticated: false
 			});
 			return;
 		}
 		localStorage.setItem('isLoggedIn', 'true');
-		localStorage.setItem('token', access_token)
 		localStorage.setItem('jwt', jwt_token)
 
 		window.location.replace("http://localhost:3000/");
 
 		this.setState({
 			isAuthenticated: true,
-			idToken: access_token
 		});
 	}
 
 	logout = () => {
 		localStorage.removeItem('isLoggedIn');
-		localStorage.removeItem('token');
 		localStorage.removeItem('jwt');
-
-		// history.replace('/');
-
 		window.location.replace("http://localhost:3000/");
-
 		this.setState({
 			isAuthenticated: false,
-			idToken: null
 		});
 	}
 
@@ -64,8 +55,7 @@ export default class Auth extends React.Component {
 			console.log(code);
 			this.handleAuthentication(code);
 		}
-		console.log(localStorage.getItem('token'))
-		if (localStorage.getItem('token')) {
+		if (localStorage.getItem('jwt')) {
 			this.setState({
 				isAuthenticated: true,
 			})
@@ -74,7 +64,6 @@ export default class Auth extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
 		if (this.state.isAuthenticated === 'loading') {
 			return (<Callback {...this.props} />);
 		}

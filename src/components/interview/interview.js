@@ -4,13 +4,10 @@ import './interview.css'
 
 const Completionist = () => <span>You are good to go!</span>;
 
-// Renderer callback with condition
 const renderer = ({ days, hours, minutes, seconds, completed }) => {
 	if (completed) {
-		// Render a complete state
 		return <Completionist />;
 	} else {
-		// Render a countdown
 		return <span>ммм, всего-то! <br />{days}d : {hours}h : {minutes}:{seconds}</span>;
 	}
 };
@@ -26,27 +23,31 @@ const formatDate = (date) => {
 	const day = date.getDate();
 	const monthIndex = date.getMonth();
 	const year = date.getFullYear();
-	let hours = date.getHours();
-	let minutes = date.getMinutes();
-	if (hours < 10) { hours = "0" + hours; }
-	if (minutes < 10) { minutes = "0" + minutes; }
 
 	return (
 		<span>
-			{`${day} ${monthNames[monthIndex]} ${year}`} {`${hours}:${minutes}`}
+			{`${day} ${monthNames[monthIndex]} ${year}`}
 		</span>
 	);
 }
 
-const Interview = ({ interview, current }) => {
-	const { title, date, registered, max_slots } = interview
-	let interview_date = new Date(date);
-	const Timer = current ? <Countdown date={interview_date} renderer={renderer} /> : formatDate(interview_date);
+const formatHoursAndMinutes = (date) => {
+	let hours = date.getHours();
+	let minutes = date.getMinutes();
+	if (hours < 10) { hours = "0" + hours; }
+	if (minutes < 10) { minutes = "0" + minutes; }
+	return `${hours}:${minutes}`;
+}
+
+const InterviewView = ({ data }) => {
+	const { title, StartTime, EndTime, DateOfInterview, registered, max_slots } = data;
 	return (
 		<div className="interview-body">
 			<div className="interview-title">{title}</div>
-			<div className="interview-date">
-				{Timer}
+			<div className="interview-time">
+				{StartTime} {EndTime}
+				<br />
+				{DateOfInterview}
 			</div>
 			<div className="interview-slots">
 				<span className="interview-registered">{registered}/</span>
@@ -57,4 +58,19 @@ const Interview = ({ interview, current }) => {
 	)
 }
 
-export default Interview;
+const InterviewContainer = ({ interview, current }) => {
+	const { date, end_date } = interview
+	let interview_date = new Date(date);
+	let finish_date = new Date(end_date);
+	const DateOfInterview = current ? <Countdown date={interview_date} renderer={renderer} /> : formatDate(interview_date);
+	const EndTime = current ? null : formatHoursAndMinutes(finish_date);
+	const StartTime = current ? null : formatHoursAndMinutes(interview_date) + " —";
+	return (
+		<InterviewView data={{ ...interview, DateOfInterview, EndTime, StartTime }} />
+	)
+}
+
+export {
+	InterviewContainer,
+	InterviewView
+};

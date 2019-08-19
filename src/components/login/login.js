@@ -9,16 +9,16 @@ const Login = () => (
 		<div className="overlay-content">
 			<div className="overlay-heading">
 				Welcome to the alem Interview App
-    </div>
+			</div>
 			<div className="overlay-message">
 				Please login to continue
-    </div>
+    		</div>
 			<div className="overlay-action">
 
 				<a
 					href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user&redirect_uri=${REDIRECT_URI}`}>
 					Login
-                    </a>
+				</a>
 			</div>
 		</div>
 	</div>

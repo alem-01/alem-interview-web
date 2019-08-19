@@ -61,7 +61,6 @@ export default class App extends Component {
 
 	render() {
 		// const { data: { avatar_url, bio, login } } = this.state;
-		localStorage.setItem('jwt', "")
 		const jwt_token = localStorage.getItem('jwt')
 		// console.log(jwt_token);
 		const client = this.createApolloClient(jwt_token)

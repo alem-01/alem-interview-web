@@ -2,24 +2,25 @@ import React, { Component } from 'react';
 import { Subscription, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import toastr from 'toastr';
-import Interview from './../interview';
+import { InterviewContainer, InterviewView } from './../interview';
 import './interviews.css';
 
 const SUBSCRIPTION_USERS = gql`
 subscription {
-	interview_view {
+	interview_view(order_by: {date: asc}) {
 	  id
 	  title
 	  date
 	  max_slots
 	  registered
+	  end_date
 	}
   }
 `;
 
 const UPDATE_USER_INTERVIEW = gql`
-  mutation update_interview_id ($id: Int!, $interview_id: Int) {
-	update_users(where: {id: {_eq: $id}}, _set: {interview_id: $interview_id}) {
+  mutation update_interview_id ($user_id: Int!, $interview_id: Int) {
+	update_users(where: {user_id: {_eq: $user_id}}, _set: {interview_id: $interview_id}) {
 	  affected_rows
 	}
   }
@@ -35,12 +36,70 @@ subscription {
 		max_slots
 		registered
 		title
+		end_date
 	  }
 	}
   }
 `
 
-const InterviewsList = ({ registered }) => {
+const parseJwt = (token) => {
+	var base64Url = token.split('.')[1];
+	var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+	var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+		return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+	}).join(''));
+
+	return JSON.parse(jsonPayload);
+};
+
+const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview }) => {
+	return (
+		<div className="interviews-item current"
+			onClick={() => {
+				updateUserInterview({ variables: { user_id: hasura_id, interview_id: null } })
+					.then(() => {
+						toastr.success('Хм, успел? Молодец!')
+					}).catch(() => {
+						toastr.error('Полно уже, друже')
+					})
+			}}>
+			<InterviewContainer interview={interview} current={1} />
+			<div className="interview-subscription">
+				<button className="btn btn-outline-danger">
+					<i className="fa fa-minus-circle"></i>
+				</button>
+			</div>
+		</div>
+	)
+}
+
+const InterviewItem = ({ hasura_id, interview, updateUserInterview }) => {
+	return (
+		<div className="interviews-item"
+			onClick={() => {
+				updateUserInterview({ variables: { user_id: hasura_id, interview_id: interview.id } })
+					.then(() => {
+						toastr.success('Хм, успел? Молодец!')
+					}).catch(() => {
+						toastr.error('Полно уже, друже')
+
+					})
+			}}>
+			<InterviewContainer interview={interview} />
+			<div className="interview-subscription">
+				<button className="btn btn-outline-success">
+					<i className="fa fa-plus-circle"></i>
+				</button>
+			</div>
+		</div>
+	)
+}
+
+const InterviewsList = ({ interview_id }) => {
+	const user_id = localStorage.getItem("jwt");
+	const data = parseJwt(user_id);
+	const hasura_id = data["https://hasura.io/jwt/claims"]["x-hasura-user-id"];
+
 	return (
 		<Mutation mutation={UPDATE_USER_INTERVIEW}>
 			{(updateUserInterview) => {
@@ -55,28 +114,25 @@ const InterviewsList = ({ registered }) => {
 							}
 							return (
 								data.interview_view.map((interview) => {
+									if (interview_id === interview.id) {
+										return (
+											<CurrentInterviewItem
+												key={interview.id}
+												hasura_id={hasura_id}
+												interview={interview}
+												updateUserInterview={updateUserInterview} />
+										);
+									}
 									let interview_date = new Date(interview.date);
 									if ((new Date()).getTime() > interview_date) {
 										return null;
 									}
 									return (
-										<div className="interviews-item" key={interview.id}
-											onClick={() => {
-												if (registered) {
-													toastr.error('Вначале отпишись от прошлой')
-													return;
-												}
-												updateUserInterview({ variables: { id: 1, interview_id: interview.id } })
-													.then(() => {
-														toastr.success('Хм, успел? Молодец!')
-													}).catch(() => {
-														toastr.error('Полно уже, друже')
-
-													})
-
-											}}>
-											<Interview interview={interview} />
-										</div>
+										<InterviewItem
+											key={interview.id}
+											hasura_id={hasura_id}
+											interview={interview}
+											updateUserInterview={updateUserInterview} />
 									)
 								})
 							)
@@ -85,72 +141,41 @@ const InterviewsList = ({ registered }) => {
 					</Subscription>
 				)
 			}
-
 			}
-
 		</Mutation>
 	)
 }
 
-const CurrentInterview = ({ updateRegisteredStatus }) => {
-	// if current_interview - 12 < now => dont set mutation, only subscribe
-	// else render mutation with subscritp
+const CurrentInterviewView = ({ updateInterviewId }) => {
 	return (
-		<Mutation mutation={UPDATE_USER_INTERVIEW}>
-			{(updateUserInterview) => {
-				return (
-					<Subscription subscription={SUBSCRIPTION_USER_INTERVIEW}
-						onSubscriptionData={(e) => { updateRegisteredStatus(e) }}>
-						{
-							({ loading, error, data }) => {
-								if (loading) {
-									return (<span>loading...</span>);
-								}
-								if (error) {
-									return (<span>error...</span>);
-								}
-								return (
-									data.users.map((interview) => {
-										if (!interview.interview_user) {
-											return null;
-										}
-										return (
-											<div className="interviews-item current" key={interview.interview_user.id}
-												onClick={() => {
-													const time = new Date(interview.interview_user.date);
-													time.setTime(time.getTime() - (12 * 60 * 60 * 1000));
-													const current = new Date();
-													if (current > time) {
-														return;
-													}
-													updateUserInterview({ variables: { id: 1, interview_id: null } })
-														.then(() => {
-															toastr.success('Ты уже уходишь, так быстро?')
-														}).catch(() => {
-															toastr.error('Ты уже уходишь, так быстро?')
-														})
-												}}>
-												<Interview interview={interview.interview_user} current={1} />
-											</div>
-										)
-									})
-								)
-							}
-						}
-					</Subscription>
-				)
+		<Subscription subscription={SUBSCRIPTION_USER_INTERVIEW}
+			onSubscriptionData={(e) => { updateInterviewId(e.subscriptionData.data.users) }}>
+			{
+				({ loading, error }) => {
+					if (loading) {
+						return (<span>loading...</span>);
+					}
+					if (error) {
+						return (<span>error...</span>);
+					}
+					return null
+				}
 			}
-			}
-
-		</Mutation>
-
+		</Subscription>
 	)
 }
 
 class Interviews extends Component {
 
 	state = {
-		registered: 0
+		registered: 0,
+		interview_id: null,
+	}
+
+	updateInterviewId = (e) => {
+		this.setState({
+			interview_id: e[0].interview_user ? e[0].interview_user.id : null
+		});
 	}
 
 	updateRegisteredStatus = (e) => {
@@ -160,30 +185,27 @@ class Interviews extends Component {
 		});
 	}
 
-
-	// componentDidUpdate = ()
 	render() {
+		const interviewsHeader = {
+			title: "Title",
+			StartTime: "Time Interval",
+			DateOfInterview: "Date",
+			registered: "Registered",
+			max_slots: "Max Slots"
+		};
+
 		return (
 			<React.Fragment>
-
-				<div className="interview-current">
-					<CurrentInterview updateRegisteredStatus={this.updateRegisteredStatus} registered={this.state.registered} />
-				</div>
+				<CurrentInterviewView updateInterviewId={this.updateInterviewId} />
 
 				<div className="interviews-block" >
 					<div className="interviews-item">
-						<div className="interview-body">
-							<div className="interview-title">Title</div>
-							<div className="interview-date">
-								Date
-						</div>
-							<div className="interview-slots">
-								<span className="interview-registered">Registered/Max slots</span>
-							</div>
+						<InterviewView data={interviewsHeader} />
+						<div className="interview-subscription">
 						</div>
 					</div>
 
-					<InterviewsList registered={this.state.registered} />
+					<InterviewsList interview_id={this.state.interview_id} />
 				</div>
 			</React.Fragment>
 		)

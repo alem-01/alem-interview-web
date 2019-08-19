@@ -1,3 +1,6 @@
-import Interview from './interview';
+import { InterviewContainer, InterviewView } from './interview';
 
-export default Interview;
+export {
+	InterviewContainer,
+	InterviewView,
+};
