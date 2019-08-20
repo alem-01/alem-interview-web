@@ -9,14 +9,14 @@ jobs:
       - run: |
          docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
-        name: Build image
-        command: |
-          sh scripts/build.sh
+          name: Build image
+          command: |
+            sh scripts/build.sh
       - run:
-        name: Push image
-        command: |
-          sh scripts/push.sh
-      - deploy:
+          name: Push image
+          command: |
+            sh scripts/push.sh
+      - run:
           name: Deploy
           command: |
-            ssh $LOGIN@$SERVER "cd alem-interview-web && docker pull alem-interview-web && sh scripts/reload.sh"
+            ssh  -o "StrictHostKeyChecking no" $LOGIN@$SERVER "cd alem-interview-web && git pull && docker pull atlekbai/alem-interview && sh scripts/reload.sh"
