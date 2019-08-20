@@ -1,8 +1,8 @@
+import { config } from '../config';
+
 export default class GithubService {
-	// _gateBase = "https://zulbukharov-gate.herokuapp.com/authenticate/";
-	_gateBase = "https://email-trigger.alem.school"
-	_apiBase = "https://api.github.com";
-	_token = '';
+	_gateBase = config.url.GATE_BASE;
+	_apiBase = config.url.API_BASE;
 
 	generateJwtToken = async () => {
 		const code = localStorage.getItem('token');

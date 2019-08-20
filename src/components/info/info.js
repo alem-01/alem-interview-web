@@ -14,7 +14,7 @@ const Info = ({ logout }) => {
 					<button className="btn btn-outline-danger"
 						onClick={() => logout()}
 					>
-						Exit
+						<i class="fa fa-sign-out"></i>
 					</button>
 				</div>
 			</div>

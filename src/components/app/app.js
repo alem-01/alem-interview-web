@@ -6,6 +6,9 @@ import { ApolloProvider } from 'react-apollo';
 import './app.css'
 import Interviews from '../interviews';
 import Footer from '../footer';
+import { config } from '../../config';
+
+const hasuraUri = config.url.HASURA_URI;
 
 export default class App extends Component {
 
@@ -17,7 +20,7 @@ export default class App extends Component {
 		return new ApolloClient({
 
 			link: new WebSocketLink({
-				uri: 'wss://hasura-interview.alem.school/v1/graphql',
+				uri: hasuraUri,
 				options: {
 					reconnect: true,
 					lazy: true,

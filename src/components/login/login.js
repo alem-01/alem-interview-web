@@ -1,15 +1,16 @@
 import React from "react";
 import './login.css';
+import { config } from '../../config';
 
-const CLIENT_ID = "208397fc442d1ed91769";
-const REDIRECT_URI = "http://localhost:3000/code";
+const CLIENT_ID = config.url.CLIENT_ID;
+const REDIRECT_URI = config.url.REDIRECT_URI;
 
 const Login = () => (
 	<div className="overlay">
 		<div className="overlay-content">
 			<div className="overlay-action">
 				<a
-					href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user&redirect_uri=${REDIRECT_URI}`}>
+					href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`}>
 					<button className="btn btn-success">
 						Authorize Via Github
 					</button>

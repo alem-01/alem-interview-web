@@ -4,11 +4,11 @@ import './interview.css'
 
 const Completionist = () => <span>You are good to go!</span>;
 
-const renderer = ({ days, hours, minutes, seconds, completed }) => {
+const renderer = ({ hours, minutes, seconds, completed }) => {
 	if (completed) {
 		return <Completionist />;
 	} else {
-		return <span>{days}d : {hours}h : {minutes}:{seconds}</span>;
+		return <span>{hours}:{minutes}:{seconds}</span>;
 	}
 };
 
@@ -39,11 +39,26 @@ const formatHoursAndMinutes = (date) => {
 	return `${hours}:${minutes}`;
 }
 
+const OnlineView = ({ online }) => {
+	const field = typeof (online) === "string" ? <span>Offline/Online</span>
+		: (online ? <span>Online</span> : <span>Offline</span>);
+	return (
+		<div>
+			{field}
+		</div>
+	);
+}
+
 const InterviewView = ({ data }) => {
-	const { title, StartTime, EndTime, DateOfInterview, registered, max_slots } = data;
+	const { online, StartTime, EndTime, DateOfInterview, registered, max_slots } = data;
 	return (
 		<div className="interview-body">
-			<div className="interview-title">{title}</div>
+			<div className="interview-status">
+				<OnlineView online={online} />
+			</div>
+			{/* <div className="interview-title">
+				{title}
+			</div> */}
 			<div className="interview-time">
 				{DateOfInterview}
 				<br />
@@ -63,8 +78,11 @@ const InterviewContainer = ({ interview, current }) => {
 	let interview_date = new Date(date);
 	let finish_date = new Date(end_date);
 	const DateOfInterview = formatDate(interview_date);
-	const EndTime = current ? null : formatHoursAndMinutes(finish_date);
-	const StartTime = current ? <Countdown date={interview_date} renderer={renderer} /> : formatHoursAndMinutes(interview_date) + " —";
+	const isItClose = (new Date() > (interview_date.getTime() - (2 * 60 * 60 * 1000)))
+	const EndTime = current && isItClose ? null : formatHoursAndMinutes(finish_date);
+	const StartTime = current && isItClose ? <Countdown date={interview_date} renderer={renderer} /> : formatHoursAndMinutes(interview_date) + " —";
+
+
 	return (
 		<InterviewView data={{ ...interview, DateOfInterview, EndTime, StartTime }} />
 	)

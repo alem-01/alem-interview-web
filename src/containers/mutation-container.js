@@ -15,6 +15,7 @@ subscription {
 	  max_slots
 	  registered
 	  end_date
+	  online
 	}
   }
 `;

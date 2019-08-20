@@ -13,6 +13,7 @@ subscription {
 		registered
 		title
 		end_date
+		online
 	  }
 	}
   }
