@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:17.05.0-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: |
+         docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run:
+        name: Build image
+        command: |
+          sh scripts/build.sh
+      - run:
+        name: Push image
+        command: |
+          sh scripts/push.sh
+      - deploy:
+          name: Deploy
+          command: |
+            ssh $LOGIN@$SERVER "cd alem-interview-web && docker pull alem-interview-web && sh scripts/reload.sh"
