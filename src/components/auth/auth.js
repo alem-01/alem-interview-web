@@ -56,7 +56,6 @@ export default class Auth extends React.Component {
 		const url = new URL(window.location.href);
 		const code = url.searchParams.get("code")
 		if (code) {
-			console.log(code);
 			this.handleAuthentication(code);
 		}
 		if (localStorage.getItem('jwt')) {
