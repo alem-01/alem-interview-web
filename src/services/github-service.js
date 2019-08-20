@@ -20,13 +20,12 @@ export default class GithubService {
 	getToken = async (code) => {
 		const res = await fetch(`${this._gateBase}/auth/?code=${code}`);
 
-		// if (!res.ok) {
-		// };
-
-		// refactor
+		if (!res.ok) {
+			return {
+				hint: 'Internal Server Error',
+			}
+		};
 		const r = await res.json();
-		// console.log(r);
-		// const result = JSON.parse(r);
 		return r;
 	}
 

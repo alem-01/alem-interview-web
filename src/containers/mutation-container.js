@@ -1,6 +1,7 @@
 import React from 'react';
 import toastr from 'toastr';
 import { InterviewContainer } from './../components/interview';
+import { config } from '../config';
 
 import { Subscription, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -40,7 +41,7 @@ const parseJwt = (token) => {
 
 const InterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date }) => {
 	let now = new Date();
-	const interview_time = new Date(interview_date.getTime() - 12 * 60 * 60 * 1000);
+	const interview_time = new Date(interview_date.getTime() - config.time);
 	const expired = now > interview_time;
 	return (
 		<div className="interviews-item"
@@ -79,7 +80,7 @@ const InterviewSubscribeButton = ({ expired, current }) => {
 
 const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date }) => {
 	let now = new Date();
-	const interview_time = new Date(interview_date.getTime() - 12 * 60 * 60 * 1000);
+	const interview_time = new Date(interview_date.getTime() - config.time);
 	const expired = now > interview_time;
 	return (
 		<div className="interviews-item current"
