@@ -19,4 +19,4 @@ jobs:
       - run:
           name: Deploy
           command: |
-            ssh $LOGIN@$SERVER "cd alem-interview-web && git pull && docker pull alem-interview && sh scripts/reload.sh"
+            ssh  -o "StrictHostKeyChecking no" $LOGIN@$SERVER "cd alem-interview-web && git pull && docker pull alem-interview && sh scripts/reload.sh"
