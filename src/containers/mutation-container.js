@@ -39,7 +39,7 @@ const parseJwt = (token) => {
 	return JSON.parse(jsonPayload);
 };
 
-const InterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date }) => {
+const InterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date, last_update }) => {
 	let now = new Date();
 	const interview_time = new Date(interview_date.getTime() - config.time);
 	const expired = now > interview_time;
@@ -57,6 +57,11 @@ const InterviewItem = ({ hasura_id, interview, updateUserInterview, interview_da
 					.then(() => {
 						toastr.success('Subscribed!')
 					}).catch(() => {
+						let time = 120 - parseInt((new Date().getTime() - last_update.getTime()) / 1000);
+						if (time) {
+							toastr.error(`${time} seconds`);
+							return;
+						}
 						toastr.error('It`s full!')
 					})
 			}}>
@@ -78,7 +83,7 @@ const InterviewSubscribeButton = ({ expired, current }) => {
 	)
 }
 
-const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date }) => {
+const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date, last_update }) => {
 	let now = new Date();
 	const interview_time = new Date(interview_date.getTime() - config.time);
 	const expired = now > interview_time;
@@ -96,6 +101,11 @@ const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, inter
 					.then(() => {
 						toastr.success('Unsubscribed!')
 					}).catch(() => {
+						let time = 120 - parseInt((new Date().getTime() - last_update.getTime()) / 1000);
+						if (time) {
+							toastr.error(`${time} seconds`);
+							return;
+						}
 						toastr.error('It`s full')
 					})
 			}}>
@@ -105,10 +115,11 @@ const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, inter
 	)
 }
 
-const InterviewItemsConatiner = ({ interview_id }) => {
+const InterviewItemsConatiner = ({ interview_id, updated_at }) => {
 	const user_id = localStorage.getItem("jwt");
 	const data = parseJwt(user_id);
 	const hasura_id = data["https://hasura.io/jwt/claims"]["x-hasura-user-id"];
+	const last_update = new Date(updated_at);
 
 	return (
 		<Mutation mutation={UPDATE_USER_INTERVIEW}>
@@ -139,7 +150,9 @@ const InterviewItemsConatiner = ({ interview_id }) => {
 												hasura_id={hasura_id}
 												interview={interview}
 												updateUserInterview={updateUserInterview}
-												interview_date={interview_date} />
+												interview_date={interview_date}
+												last_update={last_update}
+											/>
 										);
 									}
 									if ((new Date()) > interview_date) {
@@ -151,7 +164,9 @@ const InterviewItemsConatiner = ({ interview_id }) => {
 											hasura_id={hasura_id}
 											interview={interview}
 											updateUserInterview={updateUserInterview}
-											interview_date={interview_date} />
+											interview_date={interview_date}
+											last_update={last_update}
+										/>
 									)
 								})
 							)

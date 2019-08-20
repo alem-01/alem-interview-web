@@ -5,6 +5,7 @@ const prod = {
 		API_BASE: "https://api.github.com",
 		CLIENT_ID: "208397fc442d1ed91769",
 		HASURA_URI: 'wss://hasura-interview.alem.school/v1/graphql',
+		LOGOUT: "https://interview.alem.school/",
 	},
 }
 
@@ -15,6 +16,7 @@ const dev = {
 		API_BASE: "https://api.github.com",
 		CLIENT_ID: "208397fc442d1ed91769",
 		HASURA_URI: 'wss://hasura-interview.alem.school/v1/graphql',
+		LOGOUT: "http://localhost:3000/",
 	},
 	time: (6 * 60 * 60 * 1000),
 }

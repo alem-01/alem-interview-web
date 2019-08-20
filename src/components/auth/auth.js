@@ -4,6 +4,7 @@ import Login from '../login';
 import Callback from './callback';
 import GithubService from '../../services/github-service';
 import toastr from 'toastr';
+import { config } from '../../config';
 
 export default class Auth extends React.Component {
 
@@ -35,7 +36,7 @@ export default class Auth extends React.Component {
 		localStorage.setItem('isLoggedIn', 'true');
 		localStorage.setItem('jwt', jwt_token)
 
-		window.location.replace("http://localhost:3000/");
+		window.location.replace(config.url.LOGOUT);
 
 		this.setState({
 			isAuthenticated: true,
@@ -45,7 +46,7 @@ export default class Auth extends React.Component {
 	logout = () => {
 		localStorage.removeItem('isLoggedIn');
 		localStorage.removeItem('jwt');
-		window.location.replace("http://localhost:3000/");
+		window.location.replace(config.url.LOGOUT);
 		this.setState({
 			isAuthenticated: false,
 		});

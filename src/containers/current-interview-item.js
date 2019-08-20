@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 const SUBSCRIPTION_USER_INTERVIEW = gql`
 subscription {
 	users {
+	  updated_at
 	  interview_user {
 		date
 		hours
@@ -22,7 +23,9 @@ subscription {
 const CurrentInterviewSubscription = ({ updateInterviewId }) => {
 	return (
 		<Subscription subscription={SUBSCRIPTION_USER_INTERVIEW}
-			onSubscriptionData={(e) => { updateInterviewId(e.subscriptionData.data.users) }}>
+			onSubscriptionData={(e) => {
+				updateInterviewId(e.subscriptionData.data.users);
+			}}>
 		</Subscription>
 	)
 }
