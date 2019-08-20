@@ -6,7 +6,17 @@ const Info = ({ logout }) => {
 		<div className="wrapper">
 			<div className="info">
 				<div className="info-item">
-					Welcome, Cadet!?
+					<div className="info-title">
+						Welcome to register for an interview part!
+					</div>
+					<div className="info-body">
+						You can register on any of the open slots.
+						<br />
+						If you didn’t manage to register, don’t be upset,
+						<br />
+						in the near future we will create new slots
+					</div>
+
 				</div>
 			</div>
 			<div className="exit">
