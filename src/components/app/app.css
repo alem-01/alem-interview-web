@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap');
+
 html, body {
-	font-family: 'Source Sans Pro';
+	font-family: 'IBM Plex Mono', monospace;
 	height: 100%;
 	width: 100%;
 }
