@@ -1,21 +1,59 @@
 .overlay {
 	height: 100%;
 	width: 100%;
-	background: linear-gradient(174deg, #2730d7, #1724cd, #020024);
+	background-color: hsl(0, 0%, 16%);
 	background-size: 600% 600%;
-	
-	-webkit-animation: Cutom 14s ease infinite;
-	-moz-animation: Cutom 14s ease infinite;
-	animation: Cutom 14s ease infinite;
-
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
 }
 
-button {
-	padding: 10rem;
+.background-image {
+	z-index: 0;
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	opacity: 0.5;
+	background: center / cover url("https://01.alem.school/assets/img/01-trame.svg");
+}
+
+.overlay-content {
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 5%;
+}
+.overlay-action {
+	justify-content: center;
+	align-items: flex-start;
+}
+
+div.logo {
+	width: 100px;
+	height: 100px;
+	content : url("https://01.alem.school/assets/img/logo.png"); 
+}
+
+button.btn.btn-success{
+	background-color:  hsl(260, 100%, 60%);
+	opacity: 1;
+	border: none;
+	font-size: 0.6rem;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	padding: 15px;
+	font-weight: 200;
+	width: 225px;
+	opacity: 1;
+}
+
+button.btn.btn-success:hover{
+	background-color:  hsl(260, 100%, 63%);
+	opacity: 1;
+	border: none;
 }
 
 .overlay a {
