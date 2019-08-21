@@ -110,7 +110,7 @@ const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, inter
 					})
 			}}>
 			<InterviewContainer interview={interview} current={1} />
-			<InterviewSubscribeButton expired={expired} current={1} />
+			<InterviewSubscribeButton expired={expired} current={1} passed={passed} />
 		</div>
 	)
 }
