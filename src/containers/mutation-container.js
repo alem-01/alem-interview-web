@@ -73,8 +73,8 @@ const InterviewItem = ({ hasura_id, interview, updateUserInterview, interview_da
 
 const InterviewSubscribeButton = ({ expired, current, passed }) => {
 	const Button = current ?
-		<button className="btn btn-outline-danger">Unsubscribe</button> :
-		<button className="btn btn-outline-success">Subscribe</button>;
+		<button className="btn btn-outline-danger"><i className="fa fa-minus-circle"></i></button> :
+		<button className="btn btn-outline-success"><i className="fa fa-plus-circle"></i></button>;
 	const ButtonBox = expired || passed ? null : Button
 	return (
 		<div className="interview-subscription">

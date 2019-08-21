@@ -24,7 +24,7 @@ html, body {
 
 @media (max-width: 623px) {
     html {
-		font-size: 0.8rem;
+		font-size: 0.7rem;
 		font-weight: 800;
     }
 }
