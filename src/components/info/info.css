@@ -2,9 +2,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	box-shadow: inset 0 15px 20px rgba(0, 0, 0, 0.25);
 	padding: 25px 35px;
-	background-color: hsl(236.3, 74.9%, 46.9%);
 	border-radius: 10px;
 	margin-top: 1rem;
 	font-size: 0.8rem;
@@ -23,6 +21,17 @@
 	flex-direction: column;
 	align-items: baseline;
 }
+
+.info-title {
+	font-size: 1.4rem;
+	font-weight: 900;
+	line-height: 2rem;
+}
+
+.info-body {
+	margin-top: 1rem;
+}
+
 
 .exit {
 	flex: 1;

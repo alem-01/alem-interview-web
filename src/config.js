@@ -16,7 +16,7 @@ const dev = {
 		HASURA_URI: 'wss://hasura-interview.alem.school/v1/graphql',
 		LOGOUT: "http://localhost:3000/",
 	},
-	time: (6 * 60 * 60 * 1000),
+	time: (2 * 60 * 60 * 1000),
 }
 
 export const config = process.env.NODE_ENV === 'development' ? dev : prod;

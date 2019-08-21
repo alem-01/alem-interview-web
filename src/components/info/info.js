@@ -7,14 +7,17 @@ const Info = ({ logout }) => {
 			<div className="info">
 				<div className="info-item">
 					<div className="info-title">
-						Welcome to register for an interview part!
+						Welcome to the Interview Registration page!
+					</div>
+					<div className="info-border">
+
 					</div>
 					<div className="info-body">
-						You can register on any of the open slots.
+						You can register on any of the available slots.
 						<br />
-						If you didn’t manage to register, don’t be upset,
+						If you didn’t manage to register, don’t be upset.
 						<br />
-						in the near future we will create new slots
+						Soon we will create new slots.
 					</div>
 
 				</div>
@@ -24,7 +27,7 @@ const Info = ({ logout }) => {
 					<button className="btn btn-outline-danger"
 						onClick={() => logout()}
 					>
-						<i className="fa fa-sign-out"></i>
+						logout
 					</button>
 				</div>
 			</div>

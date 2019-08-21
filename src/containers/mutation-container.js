@@ -39,14 +39,14 @@ const parseJwt = (token) => {
 	return JSON.parse(jsonPayload);
 };
 
-const InterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date, last_update }) => {
+const InterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date, last_update, passed }) => {
 	let now = new Date();
 	const interview_time = new Date(interview_date.getTime() - config.time);
 	const expired = now > interview_time;
 	return (
 		<div className="interviews-item"
 			onClick={() => {
-				if (expired) {
+				if (expired || passed) {
 					return;
 				}
 				let s = window.confirm("Confirm!");
@@ -58,24 +58,24 @@ const InterviewItem = ({ hasura_id, interview, updateUserInterview, interview_da
 						toastr.success('Subscribed!')
 					}).catch(() => {
 						let time = 120 - parseInt((new Date().getTime() - last_update.getTime()) / 1000);
-						if (time) {
-							toastr.error(`${time} seconds`);
+						if (time > 0) {
+							toastr.error(`${time} seconds left`);
 							return;
 						}
 						toastr.error('It`s full!')
 					})
 			}}>
 			<InterviewContainer interview={interview} />
-			<InterviewSubscribeButton expired={expired} />
+			<InterviewSubscribeButton expired={expired} passed={passed} />
 		</div>
 	)
 }
 
-const InterviewSubscribeButton = ({ expired, current }) => {
+const InterviewSubscribeButton = ({ expired, current, passed }) => {
 	const Button = current ?
-		<button className="btn btn-outline-danger"><i className="fa fa-minus-circle"></i></button> :
-		<button className="btn btn-outline-success"><i className="fa fa-plus-circle"></i></button>;
-	const ButtonBox = expired ? null : Button
+		<button className="btn btn-outline-danger">Unsubscribe</button> :
+		<button className="btn btn-outline-success">Subscribe</button>;
+	const ButtonBox = expired || passed ? null : Button
 	return (
 		<div className="interview-subscription">
 			{ButtonBox}
@@ -83,14 +83,14 @@ const InterviewSubscribeButton = ({ expired, current }) => {
 	)
 }
 
-const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date, last_update }) => {
+const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date, last_update, passed }) => {
 	let now = new Date();
 	const interview_time = new Date(interview_date.getTime() - config.time);
 	const expired = now > interview_time;
 	return (
 		<div className="interviews-item current"
 			onClick={() => {
-				if (expired) {
+				if (expired || passed) {
 					return;
 				}
 				let s = window.confirm("Confirm!");
@@ -102,8 +102,8 @@ const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, inter
 						toastr.success('Unsubscribed!')
 					}).catch(() => {
 						let time = 120 - parseInt((new Date().getTime() - last_update.getTime()) / 1000);
-						if (time) {
-							toastr.error(`${time} seconds`);
+						if (time > 0) {
+							toastr.error(`${time} seconds left`);
 							return;
 						}
 						toastr.error('It`s full')
@@ -115,7 +115,7 @@ const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, inter
 	)
 }
 
-const InterviewItemsConatiner = ({ interview_id, updated_at }) => {
+const InterviewItemsConatiner = ({ interview_id, updated_at, passed }) => {
 	const user_id = localStorage.getItem("jwt");
 	const data = parseJwt(user_id);
 	const hasura_id = data["https://hasura.io/jwt/claims"]["x-hasura-user-id"];
@@ -152,6 +152,7 @@ const InterviewItemsConatiner = ({ interview_id, updated_at }) => {
 												updateUserInterview={updateUserInterview}
 												interview_date={interview_date}
 												last_update={last_update}
+												passed={passed}
 											/>
 										);
 									}
@@ -166,6 +167,7 @@ const InterviewItemsConatiner = ({ interview_id, updated_at }) => {
 											updateUserInterview={updateUserInterview}
 											interview_date={interview_date}
 											last_update={last_update}
+											passed={passed}
 										/>
 									)
 								})
