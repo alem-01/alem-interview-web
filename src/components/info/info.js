@@ -18,6 +18,10 @@ const Info = ({ logout }) => {
 						If you didn’t manage to register, don’t be upset -
 						<br />
 						soon, we will create new slots.
+						<br />
+						P.S. choose dates carefully - to pick another time
+						<br />
+						for the interview you will have to wait 1 minute.
 					</div>
 
 				</div>
