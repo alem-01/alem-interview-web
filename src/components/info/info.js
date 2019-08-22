@@ -15,9 +15,9 @@ const Info = ({ logout }) => {
 					<div className="info-body">
 						You can register on any of the available slots.
 						<br />
-						If you didn’t manage to register, don’t be upset.
+						If you didn’t manage to register, don’t be upset -
 						<br />
-						Soon we will create new slots.
+						soon, we will create new slots.
 					</div>
 
 				</div>

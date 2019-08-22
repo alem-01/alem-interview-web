@@ -16,10 +16,10 @@
 	background: rgb(39,48,215);
 }
 
-button.btn.btn-outline-danger {
-	color:  rgba(255, 255, 255, 0.9);
-	background-color: rgba(217,83,79, 1);
-	border-style: none;
+button.unsubscribe {
+	color:  rgba(217,83,79, 1);
+	background-color: transparent;
+	border-color: rgba(217,83,79, 1);
 	opacity: 1;
 	font-size: 0.6rem;
 	letter-spacing: 1px;
@@ -28,20 +28,21 @@ button.btn.btn-outline-danger {
 	opacity: 1;
 }
 
-button.btn.btn-outline-danger:hover{
+button.unsubscribe:hover{
 	background-color: rgba(217,83,79, 0.8);
+	color: white;
 }
 
-button.btn.btn-outline-success:hover {
+button.subscribe:hover {
+	color: white;
 	background-color: rgba(92,184,92, 0.8);
 }
 
 
-button.btn.btn-outline-success {
-	color:  rgba(255, 255, 255, 0.9);
-	background-color: rgba(92,184,92, 1);
-	border-style: none;
-	opacity: 1;
+button.subscribe {
+	color:  rgba(92,184,92, 1);
+	background-color: transparent;
+	border-color: rgba(92,184,92, 1);
 	font-size: 0.6rem;
 	letter-spacing: 1px;
 	text-transform: uppercase;
