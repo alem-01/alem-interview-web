@@ -7,20 +7,18 @@
 	font-size: 0.8rem;
 }
 
-button.btn.btn-outline-danger.logout{
+button.logout{
 	color:  rgba(255, 255, 255, 1);
 	background-color: transparent;
-	border-color: white;
-	opacity: 1;
 	font-size: 0.5rem;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	padding: 10px 15px;
-	font-weight: 200;
-	opacity: 1;
+	margin-right: 40px;
+
 }
 
-button.btn.btn-outline-danger.logout:hover{
+button.logout:hover{
 	color: rgba(255, 255, 255, 0.7);
 	background-color: transparent;
 }
