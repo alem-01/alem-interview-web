@@ -1,7 +1,7 @@
 .wrapper-loading {
 	height: 100%;
 	width: 100%;
-	background: linear-gradient(174deg, #2730d7, #1724cd, #020024);
+	background: #292929;
 	background-size: 600% 600%;
 	
 	-webkit-animation: Cutom 14s ease infinite;
