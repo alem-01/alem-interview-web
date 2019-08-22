@@ -19,6 +19,7 @@ button.logout{
 
 button.logout:hover{
 	color: rgba(255, 255, 255, 0.7);
+	border-color: rgba(255, 255, 255, 0.7);
 	background-color: transparent;
 }
 
@@ -46,6 +47,7 @@ button.logout:hover{
 .info-body {
 	margin-top: 1rem;
 	font-weight: 0;
+	color: rgba(255,255, 255, 0.8);
 }
 
 
