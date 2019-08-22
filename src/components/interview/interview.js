@@ -53,17 +53,16 @@ const InterviewView = ({ data }) => {
 	const { online, StartTime, EndTime, DateOfInterview, registered, max_slots } = data;
 	return (
 		<div className="interview-body">
+
 			<div className="interview-status">
 				<OnlineView online={online} />
-			</div>
-			{/* <div className="interview-title">
-				{title}
-			</div> */}
-			<div className="interview-time">
 				{DateOfInterview}
 				<br />
 				{StartTime} {EndTime}
 			</div>
+
+
+
 			<div className="interview-slots">
 				<span className="interview-registered">{registered}/</span>
 				<span className="interview-max-slots">{max_slots}</span>

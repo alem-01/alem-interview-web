@@ -1,12 +1,27 @@
 .wrapper {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
 	padding: 25px 35px;
 	border-radius: 10px;
 	margin-top: 1rem;
 	font-size: 0.8rem;
 }
+
+button.logout{
+	color:  rgba(255, 255, 255, 1);
+	background-color: transparent;
+	font-size: 0.5rem;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	padding: 10px 15px;
+
+}
+
+button.logout:hover{
+	color: rgba(255, 255, 255, 0.7);
+	background-color: transparent;
+}
+
 
 .info {
 	flex: 10;
@@ -24,18 +39,20 @@
 
 .info-title {
 	font-size: 1.4rem;
-	font-weight: 900;
+	/*font-weight: 900;*/
 	line-height: 2rem;
 }
 
 .info-body {
 	margin-top: 1rem;
+	font-weight: 0;
 }
 
 
 .exit {
-	flex: 1;
-	display: flex;
-	flex-direction: row;
-	align-items: flex-end;
+	padding-top: 10px;
+}
+
+div.interviews-item.current {
+
 }

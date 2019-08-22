@@ -7,7 +7,7 @@ const Info = ({ logout }) => {
 			<div className="info">
 				<div className="info-item">
 					<div className="info-title">
-						Welcome to the Interview Registration page!
+						<p>Welcome to the Interview <br></br>Registration page!</p>
 					</div>
 					<div className="info-border">
 
@@ -15,16 +15,16 @@ const Info = ({ logout }) => {
 					<div className="info-body">
 						You can register on any of the available slots.
 						<br />
-						If you didn’t manage to register, don’t be upset.
+						If you didn’t manage to register, don’t be upset -
 						<br />
-						Soon we will create new slots.
+						soon, we will create new slots.
 					</div>
 
 				</div>
 			</div>
 			<div className="exit">
 				<div className="exit-button">
-					<button className="btn btn-outline-danger"
+					<button className="logout"
 						onClick={() => logout()}
 					>
 						logout
