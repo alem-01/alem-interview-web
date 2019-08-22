@@ -57,7 +57,7 @@ const InterviewItem = ({ hasura_id, interview, updateUserInterview, interview_da
 					.then(() => {
 						toastr.success('Subscribed!')
 					}).catch(() => {
-						let time = 120 - parseInt((new Date().getTime() - last_update.getTime()) / 1000);
+						let time = 60 - parseInt((new Date().getTime() - last_update.getTime()) / 1000);
 						if (time > 0) {
 							toastr.error(`${time} seconds left`);
 							return;
@@ -101,11 +101,6 @@ const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, inter
 					.then(() => {
 						toastr.success('Unsubscribed!')
 					}).catch(() => {
-						let time = 120 - parseInt((new Date().getTime() - last_update.getTime()) / 1000);
-						if (time > 0) {
-							toastr.error(`${time} seconds left`);
-							return;
-						}
 						toastr.error('It`s full')
 					})
 			}}>
