@@ -1,8 +1,11 @@
 FROM node:lts-alpine
-COPY . .
-RUN npm i --log-level warn; \
-    npm i vue-text-glitch --save; \
-	npm run build --silent
 
+WORKDIR '/app'
+
+COPY package.json .
+RUN npm install
 RUN npm install -g serve
+
+COPY . .
+RUN npm run build --silent
 CMD ["serve", "-s", "build"]
