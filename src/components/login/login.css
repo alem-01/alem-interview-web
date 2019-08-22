@@ -37,7 +37,7 @@ div.logo {
 	content : url("https://01.alem.school/assets/img/logo.png"); 
 }
 
-button.btn.btn-success{
+button.auth{
 	background-color:  hsl(260, 100%, 60%);
 	opacity: 1;
 	border: none;
@@ -50,7 +50,7 @@ button.btn.btn-success{
 	opacity: 1;
 }
 
-button.btn.btn-success:hover{
+button.auth:hover{
 	background-color:  hsl(260, 100%, 63%);
 	opacity: 1;
 	border: none;

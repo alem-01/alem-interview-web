@@ -14,7 +14,7 @@ const Login = () => (
 					<div className="overlay-action"> 
 						<a
 							href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`}>
-							<button className="btn btn-success" >
+							<button className="btn auth" >
 								Authorize Via Github
 							</button>
 						</a>
