@@ -3,11 +3,6 @@
 	width: 100%;
 	background-color: #292929;
 	background-size: 600% 600%;
-	
-	-webkit-animation: Cutom 14s ease infinite;
-	-moz-animation: Cutom 14s ease infinite;
-	animation: Cutom 14s ease infinite;
-
 	display: flex;
 	flex-direction: row;
 	align-items: center;
