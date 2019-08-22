@@ -15,7 +15,6 @@ export default class Loading extends Component {
 					<div></div>
 				</div>
 				<style type="text/css">
-
 				</style>
 			</div>
 		)

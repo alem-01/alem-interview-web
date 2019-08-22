@@ -7,7 +7,7 @@ const Info = ({ logout }) => {
 			<div className="info">
 				<div className="info-item">
 					<div className="info-title">
-						Welcome to the Interview Registration page!
+						<p>Welcome to the Interview <br></br>Registration page!</p>
 					</div>
 					<div className="info-border">
 
@@ -24,7 +24,7 @@ const Info = ({ logout }) => {
 			</div>
 			<div className="exit">
 				<div className="exit-button">
-					<button className="btn btn-outline-danger"
+					<button className="btn btn-outline-danger logout"
 						onClick={() => logout()}
 					>
 						logout

@@ -14,7 +14,39 @@
 
 .current {
 	background: rgb(39,48,215);
-	background: linear-gradient(90deg, #2730d7 0%, #1724cd 12%, #020024 66%); 
+}
+
+button.btn.btn-outline-danger {
+	color:  rgba(255, 255, 255, 0.9);
+	background-color: rgba(217,83,79, 1);
+	border-style: none;
+	opacity: 1;
+	font-size: 0.6rem;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	padding: 10px;
+	opacity: 1;
+}
+
+button.btn.btn-outline-danger:hover{
+	background-color: rgba(217,83,79, 0.8);
+}
+
+button.btn.btn-outline-success:hover {
+	background-color: rgba(92,184,92, 0.8);
+}
+
+
+button.btn.btn-outline-success {
+	color:  rgba(255, 255, 255, 0.9);
+	background-color: rgba(92,184,92, 1);
+	border-style: none;
+	opacity: 1;
+	font-size: 0.6rem;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	padding: 10px;
+	opacity: 1;
 }
 
 .interviews-item {
@@ -47,6 +79,7 @@
 
 .interview-status {
 	flex: 1;
+	font-size: 0.7rem;
 }
 
 .interview-time {
@@ -69,6 +102,7 @@
 .interview-slots {
 	flex: 1;
 	text-align: center;
+	font-size: 0.7rem;
 }
 
 
