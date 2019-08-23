@@ -170,6 +170,8 @@ const InterviewItemsConatiner = ({ interview_id, updated_at, passed, filterStatu
 												passed={passed}
 											/>
 										)
+									} else {
+										return null;
 									}
 								})
 							)
