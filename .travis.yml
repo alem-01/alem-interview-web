@@ -9,6 +9,7 @@ script:
   - sh scripts/build.sh
   - sh scripts/push.sh
   - echo $PRIVATE_KEY > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
 
 deploy:
   provider: script
