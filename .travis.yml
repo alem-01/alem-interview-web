@@ -1,0 +1,17 @@
+sudo: required
+service:
+  - docker
+
+before_install:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+script:
+  - sh scripts/build.sh
+  - sh scripts/push.sh
+
+deploy:
+  provider: script
+  script: ssh  -o "StrictHostKeyChecking no" $LOGIN@$SERVER \
+          "cd alem-interview-web && git pull && docker pull atlekbai/alem-interview && sh scripts/reload.sh"
+  on:
+    branch: master
