@@ -80,8 +80,6 @@ const InterviewContainer = ({ interview, current }) => {
 	const isItClose = (new Date() > (interview_date.getTime() - (2 * 60 * 60 * 1000)))
 	const EndTime = current && isItClose ? null : formatHoursAndMinutes(finish_date);
 	const StartTime = current && isItClose ? <Countdown date={interview_date} renderer={renderer} /> : formatHoursAndMinutes(interview_date) + " —";
-
-
 	return (
 		<InterviewView data={{ ...interview, DateOfInterview, EndTime, StartTime }} />
 	)

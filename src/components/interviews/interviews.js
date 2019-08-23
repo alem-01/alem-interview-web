@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import InterviewItemsConatiner from '../../containers/mutation-container';
 import CurrentInterviewSubscription from '../../containers/current-interview-item';
-import Info from '../info';
 import './interviews.css';
 
 class Interviews extends Component {
@@ -28,12 +27,12 @@ class Interviews extends Component {
 
 	render() {
 		const { interview_id, updated_at, passed } = this.state;
+		const { filterStatus } = this.props;
 		return (
 			<React.Fragment>
 				<CurrentInterviewSubscription updateInterviewId={this.updateInterviewId} />
-				<Info logout={this.props.logout} />
 				<div className="interviews-block" >
-					<InterviewItemsConatiner interview_id={interview_id} updated_at={updated_at} passed={passed} />
+					<InterviewItemsConatiner interview_id={interview_id} updated_at={updated_at} passed={passed} filterStatus={filterStatus} />
 				</div>
 			</React.Fragment>
 		)

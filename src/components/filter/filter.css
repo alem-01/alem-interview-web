@@ -1,0 +1,39 @@
+div.filters {
+	margin: 1rem 0 2rem 0;
+	display: flex;
+}
+
+button.filter-active {
+	flex: 1;
+	margin-right: 1rem;
+	background-color: transparent;
+	font-size: 0.5rem;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	padding: 10px 15px;
+	color: rgba(255, 255, 255, 0.5);
+	border-color: rgba(255, 255, 255, 0.5);
+	background-color: transparent;
+}
+
+button.filter{
+	flex: 1;
+	margin-right: 1rem;
+	color:  rgba(255,255, 255, 0.8);
+	background-color: transparent;
+	font-size: 0.5rem;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	padding: 10px 15px;
+
+}
+
+button.filter:hover{
+	color: rgba(255, 255, 255, 0.5);
+	border-color: rgba(255, 255, 255, 0.5);
+	background-color: transparent;
+}
+
+div.space {
+	flex: 4;
+}

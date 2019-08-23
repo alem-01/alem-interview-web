@@ -11,11 +11,6 @@
 	flex-direction: column;
 }
 
-
-.current {
-	background: rgb(39,48,215);
-}
-
 button.unsubscribe {
 	color:  rgba(217,83,79, 1);
 	background-color: transparent;
@@ -58,7 +53,12 @@ button.subscribe {
 	align-content: stretch;
 	border-radius: 10px;
 	margin-bottom: 6px;
+}
 
+
+.current {
+	/* background: rgb(39,48,215); */
+	background: linear-gradient(90deg, #2730d7, #1724cd, #020024);
 }
 
 .interview-body {

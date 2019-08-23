@@ -7,13 +7,15 @@ import './app.css'
 import Interviews from '../interviews';
 import Footer from '../footer';
 import { config } from '../../config';
+import Filter from '../filter';
+import Info from '../info';
 
 const hasuraUri = config.url.HASURA_URI;
 
 export default class App extends Component {
 
 	state = {
-		data: {},
+		filterStatus: 'all',
 	}
 
 	createApolloClient = (authToken) => {
@@ -36,13 +38,21 @@ export default class App extends Component {
 		});
 	};
 
+	updateFilterStatus = (newStatus) => {
+		this.setState({
+			filterStatus: newStatus,
+		})
+	}
+
 	render() {
 		const jwt_token = localStorage.getItem('jwt')
 		const client = this.createApolloClient(jwt_token)
 		return (
 			<ApolloProvider client={client}>
 				<div className="container bo">
-					<Interviews logout={this.props.auth.logout} />
+					<Info logout={this.props.auth.logout} />
+					<Filter updateFilterStatus={this.updateFilterStatus} filterStatus={this.state.filterStatus} />
+					<Interviews filterStatus={this.state.filterStatus} />
 				</div>
 				<Footer />
 			</ApolloProvider>

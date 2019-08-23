@@ -2,11 +2,6 @@ import React from 'react';
 import toastr from 'toastr';
 import { InterviewContainer } from './../components/interview';
 import { config } from '../config';
-
-
-
-
-
 import { Subscription, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from '../components/loading';
@@ -47,10 +42,11 @@ const InterviewItem = ({ hasura_id, interview, updateUserInterview, interview_da
 	let now = new Date();
 	const interview_time = new Date(interview_date.getTime() - config.time);
 	const expired = now > interview_time;
+	const isNotFull = interview.max_slots - interview.registered
 	return (
 		<div className="interviews-item"
 			onClick={() => {
-				if (expired || passed) {
+				if (!isNotFull || expired || passed) {
 					return;
 				}
 				let s = window.confirm("Confirm!");
@@ -70,16 +66,17 @@ const InterviewItem = ({ hasura_id, interview, updateUserInterview, interview_da
 					})
 			}}>
 			<InterviewContainer interview={interview} />
-			<InterviewSubscribeButton expired={expired} passed={passed} />
+			<InterviewSubscribeButton expired={expired} passed={passed} isNotFull={isNotFull} />
 		</div>
 	)
 }
 
-const InterviewSubscribeButton = ({ expired, current, passed }) => {
+const InterviewSubscribeButton = ({ expired, current, passed, isNotFull }) => {
+	const Subscribe = isNotFull ? <button className="subscribe">Subscribe</button> : null;
 	const Button = current ?
 		<button className="unsubscribe">Unsubscribe</button> :
-		<button className="subscribe">Subscribe</button>;
-	const ButtonBox = expired || passed ? null : Button
+		Subscribe;
+	const ButtonBox = expired || passed ? null : Button;
 	return (
 		<div className="interview-subscription">
 			{ButtonBox}
@@ -87,7 +84,7 @@ const InterviewSubscribeButton = ({ expired, current, passed }) => {
 	)
 }
 
-const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date, last_update, passed }) => {
+const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, interview_date, passed }) => {
 	let now = new Date();
 	const interview_time = new Date(interview_date.getTime() - config.time);
 	const expired = now > interview_time;
@@ -114,7 +111,7 @@ const CurrentInterviewItem = ({ hasura_id, interview, updateUserInterview, inter
 	)
 }
 
-const InterviewItemsConatiner = ({ interview_id, updated_at, passed }) => {
+const InterviewItemsConatiner = ({ interview_id, updated_at, passed, filterStatus }) => {
 	const user_id = localStorage.getItem("jwt");
 	const data = parseJwt(user_id);
 	const hasura_id = data["https://hasura.io/jwt/claims"]["x-hasura-user-id"];
@@ -141,10 +138,29 @@ const InterviewItemsConatiner = ({ interview_id, updated_at, passed }) => {
 							}
 							return (
 								data.interview_view.map((interview) => {
-									let interview_date = new Date(interview.date);
-									if (interview_id === interview.id) {
+									if ((filterStatus === 'online' && interview.online === true)
+										|| (filterStatus === 'offline' && interview.online === false)
+										|| (filterStatus === 'all')
+										|| (filterStatus === 'open' && (interview.max_slots - interview.registered) > 0)) {
+										let interview_date = new Date(interview.date);
+										if (interview_id === interview.id) {
+											return (
+												<CurrentInterviewItem
+													key={interview.id}
+													hasura_id={hasura_id}
+													interview={interview}
+													updateUserInterview={updateUserInterview}
+													interview_date={interview_date}
+													last_update={last_update}
+													passed={passed}
+												/>
+											);
+										}
+										if ((new Date()) > interview_date) {
+											return null;
+										}
 										return (
-											<CurrentInterviewItem
+											<InterviewItem
 												key={interview.id}
 												hasura_id={hasura_id}
 												interview={interview}
@@ -153,22 +169,8 @@ const InterviewItemsConatiner = ({ interview_id, updated_at, passed }) => {
 												last_update={last_update}
 												passed={passed}
 											/>
-										);
+										)
 									}
-									if ((new Date()) > interview_date) {
-										return null;
-									}
-									return (
-										<InterviewItem
-											key={interview.id}
-											hasura_id={hasura_id}
-											interview={interview}
-											updateUserInterview={updateUserInterview}
-											interview_date={interview_date}
-											last_update={last_update}
-											passed={passed}
-										/>
-									)
 								})
 							)
 						}
