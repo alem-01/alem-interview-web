@@ -8,6 +8,7 @@ before_install:
 script:
   - sh scripts/build.sh
   - sh scripts/push.sh
+  - echo $PRIVATE_KEY > ~/.ssh/id_rsa
 
 deploy:
   provider: script
