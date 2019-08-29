@@ -22,6 +22,8 @@ const Info = ({ logout }) => {
 						P.S. choose dates carefully - to pick another time
 						<br />
 						for the interview you will have to wait 1 minute.
+						<br />
+						Timezone: Astana (GMT +6)
 					</div>
 
 				</div>
